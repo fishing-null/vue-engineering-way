@@ -1,7 +1,9 @@
 <template>
   <section>
     <TodoHeader @add-todo="addTodo"/>
-    <TodoMain :todoList="todoList"/>
+    <TodoMain :todoList="todoList"
+              @delete-todo="deleteTodo"
+    />
     <TodoFooter/>
   </section>
 </template>
@@ -37,4 +39,10 @@
       finished: false
     })
   }
+  const deleteTodo = (idx) => {
+    if(window.confirm("确认删除么?")){
+      todoList.value.splice(idx,1);
+    }
+  }
 </script>
+<style scoped></style>

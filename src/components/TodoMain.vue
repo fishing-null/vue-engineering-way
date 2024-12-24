@@ -5,14 +5,15 @@
       default(){}
     }
   })
+  const emit = defineEmits({})
 </script>
 
 <template>
   <section class="main">
     <input id="toggle-all" class="toggle-all" type="checkbox"/>
-    <label for="toggle-all" class="toggle-all">Mark all as complete</label>
+    <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
-      <li v-for="item in props.todoList"
+      <li v-for="(item,index) in props.todoList"
       :key="item.id"
       :class="{ completed: item.finished }">
         <div class="view">
@@ -21,7 +22,7 @@
                  v-model="item.finished"
           />
           <label>{{item.name}}</label>
-          <button class="destroy"></button>
+          <button class="destroy" @click="emit('delete-todo',index)"></button>
         </div>
       </li>
     </ul>
