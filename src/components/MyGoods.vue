@@ -2,7 +2,16 @@
   // 子组件数据需要随时改变的时候,就可以使用父子组件传值
   // 子组件通过 defineProps()接收数据并使用
   // 父组件内,子组件的自定义标签上,通过自定义属性传递数据
-  const props = defineProps(['imgUrl','title','price','idx'])
+  // 使用数组接收props,无法对props进行校验
+  // const props = defineProps(['imgUrl','title','price','idx'])
+
+  // 使用数组接收props,可以对props进行参数校验
+  const props = defineProps({
+    imgUrl:String,
+    title:String,
+    price:Number,
+    idx:Number,
+  })
   // 拿到触发自定义事件的函数
   const emit = defineEmits()
   const onCut = () => {
