@@ -2,6 +2,8 @@
   <div class="app">
     <MyProgress :width="width"/>
     <MyProgress :width="width"/>
+    <MyProgress/>
+    <MyProgress :width="30"/>
   </div>
 
 </template>

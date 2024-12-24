@@ -1,6 +1,22 @@
 <script setup>
   const props = defineProps({
-    width: Number,
+    width:{
+      // 对参数类型约束
+      type: Number,
+      // 设置缺省值
+      default: 50,
+      // 当前参数是否必传
+      required: false,
+      // 自定义参数效验规则,通过校验规则返回true,未通过参数校验规则返回false
+      validator: (value) => {
+        // value是实际传递给props的数据
+        if (value > 100 || value <= 0) {
+          console.log("illegal value");
+          return false;
+        }
+        return true;
+      }
+    }
   })
 </script>
 
