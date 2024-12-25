@@ -145,13 +145,13 @@ body {
     border-bottom: none;
     padding: 0;
 }
-.todo-list li.editing.edit {
+.todo-list li.editing .edit {
     display: block;
     width: calc(100% - 43px);
     padding: 12px 16px;
     margin: 0 0 0 43px;
 }
-.todo-list li .editing.view {
+.todo-list li.editing .view {
     display: none;
 }
 .todo-list li .toggle {
@@ -279,7 +279,7 @@ body {
     border-color: #ce4646;
 }
 .clear-completed,
-html.clear-completed:active {
+html .clear-completed:active {
     float: right;
     position: relative;
     line-height: 19px;
@@ -313,10 +313,10 @@ Can't use it globally since it destroys checkboxes in Firefox
 */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
     .toggle-all,
-    .todo-list li.toggle {
+    .todo-list li .toggle {
         background: none;
     }
-    .todo-list li.toggle {
+    .todo-list li .toggle {
         height: 40px;
     }
 }

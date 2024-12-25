@@ -2,7 +2,7 @@
   const props = defineProps({
     todoList:{
       type:Array,
-      default(){}
+      default:()=>{}
     }
   })
   const emit = defineEmits({})

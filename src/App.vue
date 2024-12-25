@@ -4,7 +4,9 @@
     <TodoMain :todoList="todoList"
               @delete-todo="deleteTodo"
     />
-    <TodoFooter/>
+    <TodoFooter :todoList="todoList"
+                @clear-todo="clearTodo"
+    />
   </section>
 </template>
 
@@ -39,10 +41,14 @@
       finished: false
     })
   }
+
   const deleteTodo = (idx) => {
     if(window.confirm("确认删除么?")){
       todoList.value.splice(idx,1);
     }
+  }
+  const clearTodo = () => {
+    todoList.value = todoList.value.filter(item => !item.finished)
   }
 </script>
 <style scoped></style>
