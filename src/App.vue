@@ -2,7 +2,8 @@
 <!--声明式导航 实现点击链接跳转-->
   <nav>
 <!--    本质上是封装好的a标签 href属性指向to的链接-->
-    <router-link to="/find">发现音乐</router-link>
+<!--    动态参数传递-->
+    <router-link to="/find/11555/66666">发现音乐</router-link>
     <router-link :to="{ path:'/my','query':{id:15561,music:'挪威的森林'}}">我的音乐</router-link>
     <router-link to="/friend?id=10086" >朋友</router-link>
   </nav>

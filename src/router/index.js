@@ -15,7 +15,8 @@ const router = createRouter({
         {
 
             // 路径
-            path: "/find",
+            // :声明了一个动态路由
+            path: "/find/:fid/:pid",
             // 对应的组件
             component: Find,
         },
