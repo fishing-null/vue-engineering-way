@@ -1,5 +1,6 @@
-<script setup xmlns="http://www.w3.org/1999/html">
+<script setup>
   import {useRouter} from "vue-router";
+  import {ref} from "vue";
   // 拿到了在index.js定义的路由对象
   // 通过路由对象实现页面跳转
   const router = useRouter();
@@ -11,15 +12,23 @@
     // router.push({
     //   path:'/my',
     // });
-  }
+  };
+  const editData = ref({
+    password: "",
+    account:""
+  })
 </script>
 
 <template>
-  账号:<input type="text">
-  <br>
-  密码:<input type="password">
-  <br>
-  <button @click="redirectMy">登录</button>
+  <div>
+    <span>账号</span>
+    <el-input v-model="editData.account" style="width: 240px"></el-input>
+  </div>
+  <div>
+    <span>密码</span>
+    <el-input v-model="editData.password" style="width: 240px" type="password" show-password></el-input>
+  </div>
+  <el-button type="primary" @click="redirectMy">登录</el-button>
 </template>
 
 <style scoped lang="scss">
