@@ -10,10 +10,13 @@ const router = createRouter({
     history: createWebHashHistory(),
     // 路由表规则
     routes: [
+        {
+            path: "/",
+            redirect: "/login",
+        },
         // 指明三条切换的规则,一个规则对应一个对象
         // 每个规则都是一个路由
         {
-
             // 路径
             path: "/find",
             // 对应的组件
@@ -27,6 +30,10 @@ const router = createRouter({
             path: "/friend",
             component: Friend,
         },
+        {
+            path: "/login",
+            component: () => import("@/views/Login.vue"),
+        }
     ]
 })
 export default router;
