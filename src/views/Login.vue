@@ -5,13 +5,29 @@
   // 通过路由对象实现页面跳转
   const router = useRouter();
   const redirectMy = ()=>{
+    // 查询参
     // 根具对应路径跳转
-    router.push('/my');
+    // router.push('/my?id=2');
 
     // 这两种写法是等价的
     // router.push({
     //   path:'/my',
+    //   query:{
+    //     id: 777
+    //   }
     // });
+
+    // 动态参
+
+    // router.push('/my/888')；
+
+    // 等价写法
+    router.push({
+      name: 'My',
+      params: {
+        id: 999
+      }
+    });
   };
   const editData = ref({
     password: "",

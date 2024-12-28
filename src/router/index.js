@@ -23,7 +23,9 @@ const router = createRouter({
             component: Find,
         },
         {
-            path: "/my",
+            // 动态传参
+            path: "/my/:id",
+            name: "My",
             component: My,
         },
         {
