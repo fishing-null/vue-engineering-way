@@ -4,11 +4,12 @@ const route = useRoute();
 </script>
 
 <template>
-  <div class="find">
-    <h3>我的音乐id:{{route.params.id}}</h3>
-    <h3>我的音乐</h3>
-    <h3>我的音乐...</h3>
-  </div>
+  <nav>
+    <router-link to="/my/recommend">推荐</router-link>
+    <router-link to="/my/toplist">排行榜</router-link>
+    <router-link to="/my/playlist">歌单</router-link>
+  </nav>
+  <router-view></router-view>
 </template>
 
 <style scoped lang="scss">

@@ -24,9 +24,23 @@ const router = createRouter({
         },
         {
             // 动态传参
-            path: "/my/:id",
+            path: "/my",
             name: "My",
             component: My,
+            children:[
+                {
+                    path: "toplist",
+                    component: () => import("@/views/TopList.vue")
+                },
+                {
+                    path: "recommend",
+                    component: () => import("@/views/Recommend.vue")
+                },
+                {
+                    path: "playlist",
+                    component: () => import("@/views/PlayList.vue")
+                },
+            ]
         },
         {
             path: "/friend",
