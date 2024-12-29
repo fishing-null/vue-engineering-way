@@ -52,4 +52,20 @@ const router = createRouter({
         }
     ]
 })
+
+// 通过这个变量模拟用户是否登陆
+const isLogin = false
+
+// 向router中传入一个回调函数，当回调函数返回值为true时才能正常跳转
+// 回调函数中 to是要跳转的页面的路由对象，from是要从哪个页面跳转对应的路由对象
+router.beforeEach((to, from) => {
+    if (!isLogin && to.path === "/my") {
+        // 不放行
+        alert('请先登陆')
+        return false
+    }else {
+        // 放行
+        return true
+    }
+})
 export default router;
