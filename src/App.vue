@@ -10,7 +10,22 @@
     <p>{{data}}</p>
   </FancyButton>
 
+  <BaseLayout>
+<!--    #是指令v-slot的缩写-->
+<!--    通过使用含有v-slot的template元素来将插槽名传递给该指令-->
+    <template #header>
+      <h1>title
+      </h1>
+    </template>
 
+    <template #default>
+      <p>main content</p>
+    </template>
+
+    <template #footer>
+      <p>here's some contact info</p>
+    </template>
+  </BaseLayout>
 
 
 <!--  这个组件的插槽中没有任何内容，所以会显示插槽出口处的默认内容-->
@@ -21,6 +36,7 @@
 
 import FancyButton from "@/components/FancyButton.vue";
 import {ref} from "vue";
+import BaseLayout from "@/components/BaseLayout.vue";
 
 const data = ref('from parent');
 </script>

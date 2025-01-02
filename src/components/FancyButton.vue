@@ -10,6 +10,8 @@
       <p>default content</p>
     </slot>
   </div>
+
+
 </template>
 
 <style scoped>
