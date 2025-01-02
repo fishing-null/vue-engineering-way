@@ -13,23 +13,38 @@
   <BaseLayout>
 <!--    #是指令v-slot的缩写-->
 <!--    通过使用含有v-slot的template元素来将插槽名传递给该指令-->
-    <template #header>
-      <h1>title
-      </h1>
-    </template>
+<!--    <template #header>-->
+<!--      <h1>title-->
+<!--      </h1>-->
+<!--    </template>-->
 
-    <template #default>
-      <p>main content</p>
-    </template>
+<!--    <template #default>-->
+<!--      <p>main content</p>-->
+<!--    </template>-->
 
-    <template #footer>
-      <p>here's some contact info</p>
-    </template>
+<!--    <template #footer>-->
+<!--      <p>here's some contact info</p>-->
+<!--    </template>-->
   </BaseLayout>
+
 
 
 <!--  这个组件的插槽中没有任何内容，所以会显示插槽出口处的默认内容-->
   <FancyButton/>
+
+  <Card>
+    <template #header>
+      <h1>This is the header</h1>
+    </template>
+
+    <template #default>
+      <p>This is the content</p>
+    </template>
+
+    <template #footer>
+      <em>This is the footer</em>
+    </template>
+  </Card>
 </template>
 
 <script setup>
@@ -37,7 +52,7 @@
 import FancyButton from "@/components/FancyButton.vue";
 import {ref} from "vue";
 import BaseLayout from "@/components/BaseLayout.vue";
-
+import Card from "@/components/Card.vue";
 const data = ref('from parent');
 </script>
 
