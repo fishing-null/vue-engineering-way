@@ -1,60 +1,22 @@
 <template>
-  <FancyButton>
-<!--    父组件在这里提供 slot content-->
-    Click me!
-<!--    插槽的内容可以是普通的文本，也可以是html模版内容，甚至可以是组件-->
-    <button>click</button>
-<!--    插槽的内容会在子组件的出口处被渲染出来-->
-
-<!--    因为插槽是在父组件中,所以可以访问到父组件的数据作用域-->
-    <p>{{data}}</p>
-  </FancyButton>
-
-  <BaseLayout>
-<!--    #是指令v-slot的缩写-->
-<!--    通过使用含有v-slot的template元素来将插槽名传递给该指令-->
-<!--    <template #header>-->
-<!--      <h1>title-->
-<!--      </h1>-->
-<!--    </template>-->
-
-<!--    <template #default>-->
-<!--      <p>main content</p>-->
-<!--    </template>-->
-
-<!--    <template #footer>-->
-<!--      <p>here's some contact info</p>-->
-<!--    </template>-->
-  </BaseLayout>
-
-
-
-<!--  这个组件的插槽中没有任何内容，所以会显示插槽出口处的默认内容-->
-  <FancyButton/>
-
-  <Card>
-    <template #header>
-      <h1>This is the header</h1>
-    </template>
-
-    <template #default>
-      <p>This is the content</p>
-    </template>
-
-    <template #footer>
-      <em>This is the footer</em>
-    </template>
-  </Card>
+  <!--  通过ref标签获取元素DOM属性到一个响应式变量中-->
+  <div ref="divRef">Some Text...</div>
+  <MyChart></MyChart>
 </template>
 
 <script setup>
+import {onMounted, ref} from "vue";
+import MyChart from "@/components/MyChart.vue";
+const divRef = ref(null)
+// 在挂载阶段拿到原生DOM元素
+onMounted(()=>{
+  // 拿取到元素的div元素，进行原生dom操作
+  console.log(divRef.value)
+  divRef.value.style.color = "red"
+})
 
-import FancyButton from "@/components/FancyButton.vue";
-import {ref} from "vue";
-import BaseLayout from "@/components/BaseLayout.vue";
-import Card from "@/components/Card.vue";
-const data = ref('from parent');
 </script>
 
 <style lang="scss" scoped>
+
 </style>
