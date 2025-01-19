@@ -1,32 +1,40 @@
 <template>
-  <!--  通过ref标签获取元素DOM属性到一个响应式变量中-->
-  <div ref="divRef">Some Text...</div>
-  <MyChart></MyChart>
-  <div class="login-box">
-    <MyForm ref="formRef"></MyForm>
-    <button>登陆</button>
+  <div class="box">
+    <h3>标题</h3>
+    <button @click="onEdit">编辑</button>
   </div>
-
-
+  <div v-if="ifShowEdit">
+    <input type="text" ref="inputRef">
+    <button>确认</button>
+  </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
-import MyChart from "@/components/MyChart.vue";
-import MyForm from "@/components/MyForm.vue";
-const divRef = ref(null)
-const formRef = ref(null)
-// 在挂载阶段拿到原生DOM元素
-onMounted(()=>{
-  // 拿取到元素的div元素，进行原生dom操作
-  console.log(divRef.value)
-  divRef.value.style.color = "red"
-  // 调用组件提供的方法
-  console.log(formRef.value.validate())
-})
+import {nextTick, ref} from "vue";
+  const inputRef = ref(null);
+  const ifShowEdit = ref(false)
+  // 点击编辑按钮
+  const onEdit = () => {
+    // 当ifShowEdit变化时，按理说input会被更新到DOM树上，但是  变化是异步的，DOM不会立马更新
+    ifShowEdit.value = true
+    // 这样是拿不到input元素的 此时DOM树上还没有渲染input
+    // console.log(inputRef.value)
+
+    //正确的做法
+    nextTick(() => {
+      console.log(inputRef.value)
+      inputRef.value.focus()
+    })
+  }
 
 </script>
 
 <style lang="scss" scoped>
-
+  .box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    width: 200px;
+  }
 </style>
