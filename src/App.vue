@@ -1,40 +1,45 @@
 <template>
-  <div class="box">
-    <h3>标题</h3>
-    <button @click="onEdit">编辑</button>
-  </div>
-  <div v-if="ifShowEdit">
-    <input type="text" ref="inputRef">
-    <button>确认</button>
-  </div>
+  <MyTable :data="tableData1">
+    <template #default="{ i }">
+      <button @click="findRow(i)">查看</button>
+    </template>
+  </MyTable>
+  <MyTable :data="tableData2">
+<!--    解构-->
+    <template #default="{ i }">
+      <button @click="deleteRow(i)">删除</button>
+    </template>
+  </MyTable>
 </template>
 
 <script setup>
-import {nextTick, ref} from "vue";
-  const inputRef = ref(null);
-  const ifShowEdit = ref(false)
-  // 点击编辑按钮
-  const onEdit = () => {
-    // 当ifShowEdit变化时，按理说input会被更新到DOM树上，但是  变化是异步的，DOM不会立马更新
-    ifShowEdit.value = true
-    // 这样是拿不到input元素的 此时DOM树上还没有渲染input
-    // console.log(inputRef.value)
+import MyTable from "@/component/MyTable.vue";
+import {ref} from "vue"
+const tableData1 = ref([
+  { id: 11, name: '狗蛋', age: 18 },
+  { id: 22, name: '大锤', age: 19 },
+  { id: 33, name: '铁棍', age: 17 }
+])
 
-    //正确的做法
-    nextTick(() => {
-      console.log(inputRef.value)
-      inputRef.value.focus()
-    })
+const tableData2 = ref([
+  { id: 21, name: 'Jack', age: 18 },
+  { id: 32, name: 'Rose', age: 19 },
+  { id: 43, name: 'Henry', age: 17 }
+])
+
+const deleteRow = (i) => {
+  // 移除数组中的元素
+  if(window.confirm("点击删除元素")){
+    //从当前位置删除一个元素
+    tableData2.value.splice(i, 1);
   }
+}
 
+const findRow = (i) => {
+  alert(JSON.stringify(tableData2.value[i]));
+}
 </script>
 
 <style lang="scss" scoped>
-  .box{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    width: 200px;
-  }
+
 </style>
