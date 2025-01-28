@@ -1,45 +1,73 @@
 <template>
-  <MyTable :data="tableData1">
-    <template #default="{ i }">
-      <button @click="findRow(i)">查看</button>
+  <MyTable :data="goodsList ">
+    <template #header>
+      <th>序号</th>
+      <th>封面</th>
+      <th>名字</th>
+      <th>操作</th>
     </template>
-  </MyTable>
-  <MyTable :data="tableData2">
-<!--    解构-->
-    <template #default="{ i }">
-      <button @click="deleteRow(i)">删除</button>
+    <template #body="{ row, i }">
+      <td>{{ i + 1 }}</td>
+      <td><img :src="row.picture"></td>
+      <td>{{ row.name }}</td>
+      <td>
+        <MyTag v-model="row.tag"/>
+      </td>
     </template>
   </MyTable>
 </template>
 
 <script setup>
 import MyTable from "@/component/MyTable.vue";
-import {ref} from "vue"
-const tableData1 = ref([
-  { id: 11, name: '狗蛋', age: 18 },
-  { id: 22, name: '大锤', age: 19 },
-  { id: 33, name: '铁棍', age: 17 }
-])
+import {ref} from "vue";
+import MyTag from "@/component/MyTag.vue";
 
-const tableData2 = ref([
-  { id: 21, name: 'Jack', age: 18 },
-  { id: 32, name: 'Rose', age: 19 },
-  { id: 43, name: 'Henry', age: 17 }
-])
-
-const deleteRow = (i) => {
-  // 移除数组中的元素
-  if(window.confirm("点击删除元素")){
-    //从当前位置删除一个元素
-    tableData2.value.splice(i, 1);
+const goodsList = ref([
+  {
+    id: 101,
+    picture:
+        'https://yanxuan-item.nosdn.127.net/f8c37ffa41ab1eb84bff499e1f6acfc7.jpg',
+    name: '梨皮朱泥三绝清代小品壶经典款紫砂壶',
+    tag: '茶具'
+  },
+  {
+    id: 102,
+    picture:
+        'https://yanxuan-item.nosdn.127.net/221317c85274a188174352474b859d7b.jpg',
+    name: '全防水HABU旋钮牛皮户外徒步鞋山宁泰抗菌',
+    tag: '男鞋'
+  },
+  {
+    id: 103,
+    picture:
+        'https://yanxuan-item.nosdn.127.net/cd4b840751ef4f7505c85004f0bebcb5.png',
+    name: '毛茸茸小熊出没，儿童羊羔绒背心73-90cm',
+    tag: '儿童服饰'
+  },
+  {
+    id: 104,
+    picture:
+        'https://yanxuan-item.nosdn.127.net/56eb25a38d7a630e76a608a9360eec6b.jpg',
+    name: '基础百搭，儿童套头针织毛衣1-9岁',
+    tag: '儿童服饰'
   }
-}
-
-const findRow = (i) => {
-  alert(JSON.stringify(tableData2.value[i]));
-}
+])
 </script>
 
 <style lang="scss" scoped>
+#app {
+  width: 1000px;
+  margin: 50px auto;
 
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    vertical-align: middle;
+  }
+
+  td:last-child {
+    width: 150px;
+  }
+}
 </style>
