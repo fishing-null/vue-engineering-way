@@ -4,15 +4,15 @@
         label-width 表单域标签的宽度
         style 行内样式
   -->
-  <el-form :model="form" label-width="auto" style="max-width: 600px">
+  <el-form :model="form" :rules="formRules"  ref="formRef" label-width="auto" style="max-width: 600px">
 <!--    el-form-item 用来包裹一个单独的表单控件（输入框、下拉列表、复选框、单选框）
           label 当前表单控件的名称
   -->
-    <el-form-item label="Activity name">
+    <el-form-item label="Activity name" prop="name" >
 <!--      双向绑定，收集输入框的值到表单，实现双向数据绑定-->
-      <el-input v-model="form.name" />
+      <el-input v-model="form.name" placeholder="输入活动名称"/>
     </el-form-item>
-    <el-form-item label="Activity zone">
+    <el-form-item label="Activity zone" prop="region">
 <!--      el-select + el-option  封装下拉列表组件-->
       <el-select v-model="form.region" placeholder="please select your zone">
 <!--        具体的选项、
@@ -52,7 +52,7 @@
     <el-form-item label="Instant delivery">
       <el-switch v-model="form.delivery" />
     </el-form-item>
-    <el-form-item label="Activity type">
+    <el-form-item label="Activity type" prop="type">
 <!--      el-checkbox-group 分组来管理多个复选框-->
       <el-checkbox-group v-model="form.type">
 <!--        el-checkbox是一个单独的多选框
@@ -74,7 +74,7 @@
         </el-checkbox>
       </el-checkbox-group>
     </el-form-item>
-    <el-form-item label="Resources">
+    <el-form-item label="Resources" prop="resource">
 <!--      el-radio-group用来管理一组单选框-->
       <el-radio-group v-model="form.resource">
 <!--        value会被赋值给form.resource-->
@@ -82,18 +82,18 @@
         <el-radio value="Venue">Venue</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="Activity form">
+    <el-form-item label="Activity form" prop="desc">
       <el-input v-model="form.desc" type="textarea" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">Create</el-button>
-      <el-button>Cancel</el-button>
+      <el-button type="primary" @click="onSubmit">提交</el-button>
+      <el-button @click="onReset">重置</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive,ref } from 'vue'
 
 // do not use same name with ref
 const form = reactive({
@@ -107,7 +107,67 @@ const form = reactive({
   desc: '',
 })
 
+const formRef = ref(null)
+//表单的校验规则
+const formRules = ref({
+  name: [
+      { required: true,
+        message: 'Please input your name!',
+        //校验的触发时机，失去焦点的时候进行校验
+        trigger: 'blur'
+      },
+      { max:10,
+        min:3,
+        message: 'Length illegal',
+        trigger: 'blur'
+      }
+  ],
+  region:[
+    {
+      required: true,
+      message: 'Please input your region!',
+      //这是一个下拉按钮，在change的时候触发校验
+      trigger: 'change'
+    }
+  ],
+  type:[
+    {
+      type: 'array',
+      required: true,
+      message: 'Please select at least one activity type!',
+      trigger: 'change'
+    }
+  ],
+  resource:[
+    {
+      required: true,
+      message: 'Please input your resource!',
+      trigger: 'change'
+    }
+  ],
+  desc:[
+    {
+      required: true,
+      message: 'Please input description!',
+      trigger: 'blur'
+    }
+  ]
+})
+
 const onSubmit = () => {
   console.log('submit!')
+  //提交的时候,通过ref属性获取el-form组件实例，然后做整体校验
+  //获取el-form暴露的方法
+  //1.validate() 整体校验 如果有一个不符合校验规则就返回false
+  //2.resetFields() 重置表单
+  formRef.value.validate(valid => {
+    if (!valid) return alert('Please input legal data!')
+    console.log('submit!')
+  })
+}
+
+const onReset = () => {
+  console.log('reset!')
+  formRef.value.resetFields()
 }
 </script>
