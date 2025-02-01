@@ -90,10 +90,13 @@
       <el-button @click="onReset">重置</el-button>
     </el-form-item>
   </el-form>
+
+  <Login/>
 </template>
 
 <script setup>
 import { reactive,ref } from 'vue'
+import Login from "@/component/Login.vue";
 
 // do not use same name with ref
 const form = reactive({
