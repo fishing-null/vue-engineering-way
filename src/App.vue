@@ -1,69 +1,47 @@
 <template>
-<!--
-el-table 表格组件
-      data是一个对象数组，:data绑定数据源
-      stripe属性，为表格带上斑马纹
--->
+<!--  点击后，将对话框可见-->
+  <el-button plain @click="dialogVisible = true">
+    Click to open the Dialog
+  </el-button>
 
-  <el-table :data="tableData" style="width: 100%" stripe>
-<!--    一个el-table-column就是一列-->
-  <!--    prop对应属性名
-          label是列名
-  -->
-    <el-table-column label="日期" width="180">
-      <template #default="{row}">
-        <el-icon>
-          <Timer/>
-        </el-icon>
-        <span>{{row.date}}</span>
-      </template>
-    </el-table-column>
-<!--    自定义列模版-->
-    <el-table-column label="名称" width="180">
-  <!--      通过插槽传入模版-->
-    <!--      通过作用域插槽结构出row（每一行的数据对象）-->
-      <template #default="{row}">
-        <el-tag type="success">{{row.name}}</el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column prop="address" label="地址" />
-    <el-table-column label="操作">
-      <template #default="{row}">
-        <el-icon :size="14">
-          <Delete/>
-        </el-icon>
-        <el-icon>
-          <Edit/>
-        </el-icon>
-      </template>
-    </el-table-column>
-  </el-table>
+<!--  v-model 绑定一个响应式数据控制对话框组件是否可见-->
+<!--  title:弹出对话框的标题-->
+<!--  before-close:对话框关闭前的回调函数-->
+  <el-dialog
+      v-model="dialogVisible"
+      title="Tips"
+      width="500"
+      :before-close="handleClose"
+  >
+<!--    主体内容，在默认插槽中-->
+    <template #default>
+      <span>This is a message</span>
+    </template>
+<!--    footer，自定义底部操作内容-->
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogVisible = false">
+          Confirm
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
-<script setup>
-// 数据源 一般发请求从后端拿到
-import {Delete, Edit, Timer} from "@element-plus/icons-vue";
+<script  setup>
+import { ref } from 'vue'
+import { ElMessageBox } from 'element-plus'
 
-const tableData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Sakura',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
+const dialogVisible = ref(false)
+
+const handleClose = (done) => {
+  ElMessageBox.confirm('Are you sure to close this dialog?')
+      .then(() => {
+        done()
+      })
+      .catch(() => {
+        // catch error
+      })
+}
 </script>
